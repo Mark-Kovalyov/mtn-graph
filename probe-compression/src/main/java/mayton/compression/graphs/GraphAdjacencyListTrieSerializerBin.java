@@ -1,5 +1,12 @@
 package mayton.compression.graphs;
 
+import mayton.lib.graph.Graph;
+import mayton.lib.graph.Edge;
+import mayton.lib.graph.Vertex;
+import mayton.lib.graph.GraphSerializer;
+import mayton.lib.graph.GraphProcessor;
+import mayton.lib.graph.GraphAlgorithm;
+
 import mayton.compression.encoders.varint.VLQOutputStream;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +18,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class GraphAdjacencyListTrieSerializerBin extends BinaryGraphSerializer {
+public class GraphAdjacencyListTrieSerializerBin<V,E> extends BinaryGraphSerializer<V,E> {
 
     static Comparator<Triple<Integer, Integer, Integer>> compareByLeft = Comparator.comparing(Triple::getLeft);
 
@@ -23,7 +30,7 @@ public class GraphAdjacencyListTrieSerializerBin extends BinaryGraphSerializer {
     static final String EOL = "";
 
     @Override
-    public void serialize(@NotNull Graph graph, @NotNull OutputStream outputStream, @NotNull Properties properties) throws IOException {
+    public void serialize(@NotNull Graph<V,E> graph, @NotNull OutputStream outputStream, @NotNull Properties properties) throws IOException {
         VLQOutputStream vlqOutputStream = new VLQOutputStream(outputStream);
         Map<String, Integer> map = createVertexIdToNumber(graph);
         Triple<Integer,Integer,Integer> triplePrev = null;
@@ -33,7 +40,7 @@ public class GraphAdjacencyListTrieSerializerBin extends BinaryGraphSerializer {
                         edge -> Triple.of(
                                 map.get(edge.getV1().getId()),
                                 map.get(edge.getV2().getId()),
-                                edge.getWeight())
+                                (int) edge.getValue())
                 ).sorted(compareByLeftAndMiddle)
                 .collect(Collectors.toList())
         ) {

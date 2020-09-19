@@ -1,8 +1,16 @@
 package mayton.compression;
 
 import mayton.compression.graphs.*;
+import mayton.lib.graph.Graph;
+import mayton.lib.graph.Edge;
+import mayton.lib.graph.Vertex;
+import mayton.lib.graph.GraphSerializer;
+import mayton.lib.graph.GraphProcessor;
+import mayton.lib.graph.GraphAlgorithm;
+
 import mayton.compression.tokens.TokenSentenceProcessor;
 import mayton.compression.trie.DictionaryCompactTrie;
+import mayton.lib.graph.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.profiler.Profiler;
@@ -26,11 +34,11 @@ public class Main {
         properties.put("limit",     Integer.valueOf(args[0]));
         properties.put("selection", args[1]);
 
-        Graph graph = new Graph(50_000, 260_000);
+        Graph<String, Integer> graph = new Graph<>(50_000, 260_000);
 
         Profiler profiler = new Profiler("Graph profiler");
 
-        GraphProcessor graphProcessor = new TokenSentenceProcessor();
+        GraphProcessor<String,Integer> graphProcessor = new TokenSentenceProcessor();
 
         profiler.start("Process tokens from text");
 

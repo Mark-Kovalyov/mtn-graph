@@ -1,7 +1,6 @@
 package mayton.compression.tokens;
 
-import mayton.compression.graphs.Graph;
-import mayton.compression.graphs.GraphProcessor;
+import mayton.lib.graph.*;
 import mayton.compression.languagespec.ru.RuUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +12,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
 
-public class TokenSentenceProcessor implements GraphProcessor {
+public class TokenSentenceProcessor<V,E> implements GraphProcessor<V,E> {
 
     static Logger logger = LoggerFactory.getLogger(TokenSentenceProcessor.class);
 
@@ -21,16 +20,17 @@ public class TokenSentenceProcessor implements GraphProcessor {
 
     protected String prevToken = null;
 
-    public void processGraphNode(@NotNull String token, @NotNull Graph graph) {
+    public void processGraphNode(@NotNull String token, @NotNull Graph<V,E> graph) {
         if (prevToken != null) {
             logger.debug(":: link {} -> {}", prevToken, token);
-            graph.linkEdge(prevToken, token);
+            //TODO
+            //graph.linkEdge(prevToken, token);
         }
         prevToken = token;
     }
 
     @Override
-    public @NotNull Graph upgrade(@NotNull Reader reader, @NotNull Graph graph) throws IOException {
+    public @NotNull Graph<V,E> upgrade(@NotNull Reader reader, @NotNull Graph<V,E> graph) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(reader);
         String line;
         int lines = 0;

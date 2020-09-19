@@ -20,6 +20,7 @@ import static java.util.Collections.unmodifiableMap;
 /**
  * Directed, Weight graph
  */
+@Deprecated
 public class Graph implements Serializable {
 
     static Logger logger = LoggerFactory.getLogger(Graph.class);

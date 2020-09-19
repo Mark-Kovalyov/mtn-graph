@@ -13,6 +13,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
+@Deprecated
 public class Vertex implements Serializable {
 
     static final long serialVersionUID = 1L;

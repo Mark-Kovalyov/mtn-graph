@@ -1,17 +1,20 @@
 package mayton.compression.graphs;
 
+import mayton.lib.graph.Graph;
+import mayton.lib.graph.GraphConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GraphSimplifier implements GraphConverter {
+public class GraphSimplifier<V,E> implements GraphConverter<V,E> {
+
 
     @Override
-    public @NotNull Graph convert(@NotNull Graph graph, @NotNull Properties properties) {
-        Graph newGraph = new Graph();
+    public @NotNull Graph<V, E> convert(@NotNull Graph<V, E> graph, @NotNull Properties properties) {
+        mayton.compression.graphs.Graph newGraph = new mayton.compression.graphs.Graph();
 
-        Iterator<Map.Entry<Edge, Edge>> iterator = graph.getEdgeWeigthMap().entrySet().iterator();
+        /*terator<Map.Entry<Edge, Edge>> iterator = graph.getEdgeWeigthMap().entrySet().iterator();
         while(iterator.hasNext()) {
             Map.Entry<Edge, Edge> item = iterator.next();
             Edge edge = item.getKey();
@@ -26,7 +29,8 @@ public class GraphSimplifier implements GraphConverter {
                 iterator.remove();
             }
         }
-        return newGraph;
+        return newGraph;*/
+        return null;
     }
 
 }

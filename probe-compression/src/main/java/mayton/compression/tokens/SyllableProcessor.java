@@ -1,7 +1,7 @@
 package mayton.compression.tokens;
 
-import mayton.compression.graphs.Graph;
-import mayton.compression.graphs.GraphProcessor;
+import mayton.lib.graph.*;
+
 import mayton.compression.languagespec.SyllableSplitter;
 import mayton.compression.languagespec.ru.RuSyllableSplitter;
 import mayton.compression.languagespec.ru.RuUtils;
@@ -15,26 +15,27 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
 
-public class SyllableProcessor implements GraphProcessor {
+public class SyllableProcessor<V,E> implements GraphProcessor<V,E> {
 
     static Logger logger = LoggerFactory.getLogger(SyllableProcessor.class);
 
     private String prevSyllable = null;
 
-    private void processGraphNode(@NotNull String syllable, @NotNull Graph graph) {
+    private void processGraphNode(@NotNull String syllable, @NotNull Graph<V,E> graph) {
         if (prevSyllable != null) {
             logger.debug("::::[4] {} -> {}", prevSyllable, syllable);
-            if (prevSyllable.equals("$") && syllable.equals("$")) {
+            // TODO
+            /*if (prevSyllable.equals("$") && syllable.equals("$")) {
 
             } else {
                 graph.linkEdge(prevSyllable, syllable);
-            }
+            }*/
         }
         prevSyllable = syllable;
     }
 
     @Override
-    public @NotNull Graph upgrade(@NotNull Reader reader, @NotNull Graph graph) throws IOException {
+    public @NotNull Graph<V,E> upgrade(@NotNull Reader reader, @NotNull Graph<V,E> graph) throws IOException {
         SyllableSplitter splitter = new RuSyllableSplitter();
         BufferedReader bufferedReader = new BufferedReader(reader);
         String line;

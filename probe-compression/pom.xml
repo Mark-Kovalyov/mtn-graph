@@ -20,6 +20,12 @@
   <dependencies>
 
     <dependency>
+      <groupId>mayton.libs.graph</groupId>
+      <artifactId>mtn-graph</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
       <version>1.8</version>

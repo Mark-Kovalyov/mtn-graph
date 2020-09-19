@@ -1,5 +1,9 @@
 package mayton.compression.graphs;
 
+import mayton.lib.graph.Graph;
+import mayton.lib.graph.Edge;
+import mayton.lib.graph.Vertex;
+
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +14,7 @@ import java.io.OutputStream;
 import java.util.Map;
 import java.util.Properties;
 
-public class BinaryGraphMatrixSerializer extends BinaryGraphSerializer {
+public class BinaryGraphMatrixSerializer<V,E> extends BinaryGraphSerializer<V,E> {
 
     static Logger logger = LoggerFactory.getLogger(BinaryGraphMatrixSerializer.class);
 
@@ -19,7 +23,7 @@ public class BinaryGraphMatrixSerializer extends BinaryGraphSerializer {
     }
 
     @Override
-    public void serialize(@NotNull Graph graph, @NotNull OutputStream outputStream, @NotNull Properties properties) throws IOException {
+    public void serialize(@NotNull Graph<V,E> graph, @NotNull OutputStream outputStream, @NotNull Properties properties) throws IOException {
         logger.info("START");
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         int width = graph.safeGetVertexMap().size();
@@ -34,12 +38,12 @@ public class BinaryGraphMatrixSerializer extends BinaryGraphSerializer {
             int maxRow = (k + 1) * partSize;
             logger.info("process partition # {}, with range [{}..{})", k, minRow, maxRow);
             byte[] matrixPartition = new byte[size * 2 * partSize];
-            for(Map.Entry<Edge, Edge> edgeEntry : graph.safeGetEdgeWeigthMap().entrySet()) {
+            for(Map.Entry<Edge<V,E>, Edge<V,E>> edgeEntry : graph.safeGetEdgeWeigthMap().entrySet()) {
                 Edge edge = edgeEntry.getKey();
                 int row = map.get(edge.getV1().getId());
                 int col = map.get(edge.getV2().getId());
                 if (row >= minRow && row < maxRow) {
-                    int weight = edgeEntry.getKey().getWeight();
+                    int weight = (int) edgeEntry.getKey().getValue();
                     int offset = calcOffset(row - minRow, 2 * col, width);
                     matrixPartition[offset]     = (byte) (weight >>> 8);
                     matrixPartition[offset + 1] = (byte) (weight & 0xFF);

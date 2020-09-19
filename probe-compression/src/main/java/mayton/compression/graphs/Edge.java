@@ -9,6 +9,7 @@ import java.util.Objects;
 /**
  * Directed, Weight Edge
  */
+@Deprecated
 public class Edge implements Serializable, Externalizable {
 
     static final long serialVersionUID = 2L;
