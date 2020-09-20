@@ -28,7 +28,7 @@ public class Vertex<V, E> implements Serializable {
 
     // Non-key fields
     @Nullable
-    private V value;
+    private V vertexValue;
     // TODO: Leonid proposes to get rid of Edges instead of primitives.
     private transient List<Edge<V, E>> outgoingEdges = new ArrayList<>();
     private transient List<Edge<V, E>> incomingEdges = new ArrayList<>();
@@ -37,9 +37,9 @@ public class Vertex<V, E> implements Serializable {
         this.id = id;
     }
 
-    public Vertex(int id, V value) {
+    public Vertex(int id, V vertexValue) {
         this.id = id;
-        this.value = value;
+        this.vertexValue = vertexValue;
     }
 
     public Vertex() {
@@ -78,7 +78,7 @@ public class Vertex<V, E> implements Serializable {
     void addOutgoingEdgeWithValue(@NotNull Vertex<V, E> destinationVertex, @Nullable E edgeValue) {
         Edge<V, E> outgoing = new Edge<>(this, destinationVertex, edgeValue);
         // TODO: WTF?
-        outgoing.setValue(edgeValue);
+        outgoing.setEdgeValue(edgeValue);
         outgoingEdges.add(outgoing);
     }
 
@@ -124,11 +124,11 @@ public class Vertex<V, E> implements Serializable {
     }
 
     @Nullable
-    public V getValue() {
-        return value;
+    public V getVertexValue() {
+        return vertexValue;
     }
 
-    public void setValue(@Nullable V value) {
-        this.value = value;
+    public void setVertexValue(@Nullable V vertexValue) {
+        this.vertexValue = vertexValue;
     }
 }

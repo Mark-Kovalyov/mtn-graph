@@ -25,9 +25,9 @@ public class Graph<V, E> implements Serializable {
     private Map<Edge<V, E>, Edge<V, E>> edgeMap;
     private Map<Integer, Vertex<V, E>> vertexMap;
 
-    private Function<E,E> refreshEdgeFunction;
+    private Function<E, E> refreshEdgeFunction = Function.identity();
 
-    private BiFunction<V,V,V> joinVertexFunction;
+    private BiFunction<V, V, V> joinVertexFunction;
 
     private E edgeNeutralElement;
 
@@ -52,6 +52,19 @@ public class Graph<V, E> implements Serializable {
             return vertexMap.get(id);
         } else {
             Vertex<V, E> t = new Vertex<>(id);
+            vertexMap.put(id, t);
+            return t;
+        }
+    }
+
+    @NotNull
+    public Vertex<V, E> addVertex(int id, V vertexValue) {
+        if (vertexMap.containsKey(id)) {
+            Vertex<V, E> t = vertexMap.get(id);
+            t.setVertexValue(vertexValue);
+            return t;
+        } else {
+            Vertex<V, E> t = new Vertex<>(id, vertexValue);
             vertexMap.put(id, t);
             return t;
         }
@@ -117,16 +130,16 @@ public class Graph<V, E> implements Serializable {
             vertexMap.put(v1.getId(), v1);
         } else {
             v1real = vertexMap.get(v1.getId());
-            if (v1.getValue() != null && !v1real.getValue().equals(v1.getValue())) {
-                throw new RuntimeException("Unable to link existing vertex id = " + v1.getId() + " with new Value = " + v1.getValue());
+            if (v1.getVertexValue() != null && !v1real.getVertexValue().equals(v1.getVertexValue())) {
+                throw new RuntimeException("Unable to link existing vertex id = " + v1.getId() + " with new Value = " + v1.getVertexValue());
             }
         }
         if (!vertexMap.containsKey(v2.getId())) {
             vertexMap.put(v2.getId(), v2);
         } else {
             v2real = vertexMap.get(v2.getId());
-            if (v2.getValue() != null && !v2real.getValue().equals(v2.getValue())) {
-                throw new RuntimeException("Unable to link existing vertex id = " + v2.getId() + " with new Value = " + v2.getValue());
+            if (v2.getVertexValue() != null && !v2real.getVertexValue().equals(v2.getVertexValue())) {
+                throw new RuntimeException("Unable to link existing vertex id = " + v2.getId() + " with new Value = " + v2.getVertexValue());
             }
         }
 
@@ -136,7 +149,7 @@ public class Graph<V, E> implements Serializable {
         if (edgeMap.containsKey(newEdge)) {
             // Existing edges must upgade value according to () -> refreshEdgeFunction
             Edge<V, E> realEdge = edgeMap.get(newEdge);
-            realEdge.setValue(refreshEdgeFunction.apply(realEdge.getValue()));
+            realEdge.setEdgeValue(refreshEdgeFunction.apply(realEdge.getEdgeValue()));
             return realEdge;
         } else {
             // New egdes must be added into vertex lists

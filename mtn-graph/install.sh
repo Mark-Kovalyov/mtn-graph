@@ -1,4 +1,3 @@
 #!/bin/bash -v
 
-mvn clean install
-mvn source:jar install
+mvn clean install && mvn source:jar install

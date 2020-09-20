@@ -15,7 +15,7 @@ public class Edge<V extends Object, E> implements Serializable {
     private Vertex<V, E> v1;
     private Vertex<V, E> v2;
 
-    E edgeValue;
+    @Nullable private E edgeValue;
 
     public Edge(@NotNull Vertex<V, E> v1, @NotNull Vertex<V, E> v2) {
         this.v1 = v1;
@@ -76,11 +76,11 @@ public class Edge<V extends Object, E> implements Serializable {
     }
 
     @Nullable
-    public E getValue() {
+    public E getEdgeValue() {
         return edgeValue;
     }
 
-    public void setValue(@Nullable E edgeValue) {
+    public void setEdgeValue(@Nullable E edgeValue) {
         this.edgeValue = edgeValue;
     }
 }

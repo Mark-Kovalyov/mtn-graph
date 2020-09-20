@@ -73,13 +73,13 @@ public class GraphTest {
         Edge<Void,Integer> edge = graph.extractEdgeByIds(1,2);
         assertNotNull(edge);
 
-        assertEquals(1, (int) edge.getValue());
+        assertEquals(1, (int) edge.getEdgeValue());
         graph.linkEdge(1, 2);
-        assertEquals(2, (int) edge.getValue());
+        assertEquals(2, (int) edge.getEdgeValue());
         graph.linkEdge(1, 2);
-        assertEquals(3, (int) edge.getValue());
+        assertEquals(3, (int) edge.getEdgeValue());
         graph.linkEdge(1, 2);
-        assertEquals(4, (int) edge.getValue());
+        assertEquals(4, (int) edge.getEdgeValue());
     }
 
     @Test
@@ -127,8 +127,11 @@ public class GraphTest {
         graph.linkEdge(new Vertex<>(3), new Vertex<>(4, "болконским"));
         graph.linkEdge(new Vertex<>(3), new Vertex<>(4));
 
-        assertNotNull(graph.extractEdgeByIds(3,4));
-        assertEquals(2, (int) graph.extractEdgeByIds(3,4).getValue());
+        Edge<String, Integer> theSameEdge = graph.extractEdgeByIds(3,4);
+        assertNotNull(theSameEdge);
+        assertEquals(3, theSameEdge.getV1().getId());
+        assertEquals(4, theSameEdge.getV2().getId());
+        assertEquals(2, (int) theSameEdge.getEdgeValue());
     }
 
 }

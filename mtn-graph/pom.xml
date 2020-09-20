@@ -6,7 +6,7 @@
 
   <groupId>mayton.libs.graph</groupId>
   <artifactId>mtn-graph</artifactId>
-  <version>1.0.2</version>
+  <version>4.0.0</version>
 
   <name>mtn-graph</name>
   <url>http://www.example.com</url>
@@ -15,9 +15,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+    <slf4j.api.version>1.7.30</slf4j.api.version>
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>mayton.libs</groupId>
+      <artifactId>encoders</artifactId>
+      <version>1.0</version>
+    </dependency>
 
     <dependency>
       <groupId>com.github.bbottema</groupId>
@@ -40,13 +47,13 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.30</version>
+      <version>${slf4j.api.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-ext</artifactId>
-      <version>1.7.30</version>
+      <version>${slf4j.api.version}</version>
     </dependency>
 
     <dependency>
