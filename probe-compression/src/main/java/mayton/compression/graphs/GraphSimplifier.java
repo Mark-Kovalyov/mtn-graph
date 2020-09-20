@@ -1,7 +1,10 @@
 package mayton.compression.graphs;
 
+import mayton.lib.graph.*;
+
+import mayton.lib.graph.Edge;
 import mayton.lib.graph.Graph;
-import mayton.lib.graph.GraphConverter;
+import mayton.lib.graph.Vertex;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -12,7 +15,7 @@ public class GraphSimplifier<V,E> implements GraphConverter<V,E> {
 
     @Override
     public @NotNull Graph<V, E> convert(@NotNull Graph<V, E> graph, @NotNull Properties properties) {
-        mayton.compression.graphs.Graph newGraph = new mayton.compression.graphs.Graph();
+        Graph<V,E> newGraph = new Graph<>();
 
         /*terator<Map.Entry<Edge, Edge>> iterator = graph.getEdgeWeigthMap().entrySet().iterator();
         while(iterator.hasNext()) {

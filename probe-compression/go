@@ -7,6 +7,7 @@ export SELECTION=$2
 
 java -jar target/probe-compression-1.0-SNAPSHOT.jar "$LIMIT" "$SELECTION"
 
+exit
 
 sort < "graphs/war-and-society-1-2-3-4-simple-edges.csv" > "graphs/war-and-society-1-2-3-4-simple-edges.sorted.csv"
 bzip2 -z -k -f --best "graphs/war-and-society-1-2-3-4-simple-edges.sorted.csv"

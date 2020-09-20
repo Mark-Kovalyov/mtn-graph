@@ -28,11 +28,6 @@ public class Graph implements Serializable {
     // TODO: Leonid proposes to get rid of Edges instead of primitives.
     private Map<Edge, Edge> edgeWeigthMap;
     private Map<String, Vertex> vertexMap;
-    private transient LinkedHashMap<String, Object> statistics;
-
-    private double fd(double v) {
-        return v;
-    }
 
     public Graph() {
         vertexMap = new HashMap<>();
@@ -67,82 +62,6 @@ public class Graph implements Serializable {
         } else {
             return false;
         }
-    }
-
-    public void reCalculateStatistics() {
-        statistics = new LinkedHashMap<>();
-
-        statistics.put("Vertices", valueOf(vertexMap.size()));
-        statistics.put("Edges",    valueOf(edgeWeigthMap.size()));
-
-            List<Integer> weights = edgeWeigthMap.keySet()
-                    .stream()
-                    .map(Edge::getWeight)
-                    .collect(Collectors.toList());
-
-            if (!weights.isEmpty()) {
-
-                Stats stats = Stats.of(weights);
-                Lhm weightStatsMap = new Lhm();
-                weightStatsMap.put("Max edge weight", fd(stats.max()));
-                weightStatsMap.put("AVG edge weight", fd(stats.mean()));
-                weightStatsMap.put("Median edge weight", fd(Quantiles.median().compute(weights)));
-
-                Quantiles.percentiles().indexes(75, 80, 85, 90, 95, 97)
-                        .compute(weights).entrySet()
-                        .stream()
-                        .forEach(item ->
-                                weightStatsMap.put("" + item.getKey() + "-th percentille edge weight", item.getValue()));
-
-                statistics.put("weightStats", weightStatsMap);
-
-            } else {
-                logger.warn("Unable to calculate weight statistics!");
-            }
-
-            List<Integer> joins = vertexMap.entrySet().stream()
-                    .map(entry -> entry.getValue())
-                    .map(vertex -> vertex.getOutgoingEdges().size() + vertex.getIncomingEdges().size())
-                    .collect(Collectors.toList());
-
-            Stats joinsStats = Stats.of(joins);
-
-            Lhm joinsStatsMap = new Lhm();
-            joinsStatsMap.put("Max joins",               fd(joinsStats.max()));
-            joinsStatsMap.put("AVG joins",               fd(joinsStats.mean()));
-            joinsStatsMap.put("Median joins",            fd(Quantiles.median().compute(joins)));
-
-            Quantiles.percentiles().indexes(75, 80, 85, 90, 95, 97)
-                .compute(joins).entrySet()
-                .stream()
-                .forEach(item ->
-                        joinsStatsMap.put("" + item.getKey() + "-th percentille joins", item.getValue()));
-
-        statistics.put("joinsStats", joinsStatsMap);
-
-            List<Integer> nameLength = vertexMap.keySet().stream().map(String::length).collect(Collectors.toList());
-
-            Stats nameLengthStats = Stats.of(nameLength);
-
-            Lhm nameStatsMap = new Lhm();
-            nameStatsMap.put("Max length",               fd(nameLengthStats.max()));
-            nameStatsMap.put("AVG length",               fd(nameLengthStats.mean()));
-            nameStatsMap.put("Median length",            fd(Quantiles.median().compute(nameLength)));
-
-            Quantiles.percentiles().indexes(75, 80, 85, 90, 95, 97)
-                .compute(nameLength).entrySet()
-                .stream()
-                .forEach(item ->
-                        nameStatsMap.put("" + item.getKey() + "-th percentille name length", item.getValue()));
-
-        statistics.put("nameStats", nameStatsMap);
-    }
-
-    public Map<String, Object> getStatistics() {
-        if (statistics == null) {
-            reCalculateStatistics();
-        }
-        return statistics;
     }
 
     public boolean containsVertexWithId(@NotNull String id) {

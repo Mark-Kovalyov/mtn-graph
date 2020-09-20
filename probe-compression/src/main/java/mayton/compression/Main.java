@@ -1,6 +1,7 @@
 package mayton.compression;
 
 import mayton.compression.graphs.*;
+import mayton.compression.trie.DictionaryExpanedTrie;
 import mayton.lib.graph.Graph;
 import mayton.lib.graph.Edge;
 import mayton.lib.graph.Vertex;
@@ -31,14 +32,17 @@ public class Main {
         logger.info("START!");
 
         Properties properties = new Properties();
-        properties.put("limit",     Integer.valueOf(args[0]));
-        properties.put("selection", args[1]);
+        properties.put("limit",     "100");
+        properties.put("selection", "ORDERED");
 
         Graph<String, Integer> graph = new Graph<>(50_000, 260_000);
+        graph.setEdgeNeutralElement(0);
+        graph.setJoinVertexFunction((String s1,String s2) -> s1 + " " + s2);
+        graph.setRefreshEdgeFunction((Integer e1) -> e1 + 1);
 
         Profiler profiler = new Profiler("Graph profiler");
 
-        GraphProcessor<String,Integer> graphProcessor = new TokenSentenceProcessor();
+        GraphProcessor<String, Integer> graphProcessor = new TokenSentenceProcessor<>();
 
         profiler.start("Process tokens from text");
 
@@ -52,9 +56,9 @@ public class Main {
             new DictionaryCompactTrie().transform(reader, new OutputStreamWriter(new FileOutputStream("trie/war-and-society-1-2-3-4.dict.trie")));
         }
 
-        /*try (Reader reader = new FileReader("text/war-and-society-1-2-3-4.utf-8.txt", UTF_8)) {
+        try (Reader reader = new FileReader("text/war-and-society-1-2-3-4.utf-8.txt", UTF_8)) {
             new DictionaryExpanedTrie().transform(reader, new OutputStreamWriter(new FileOutputStream("trie/war-and-society-1-2-3-4.expandedtrie")));
-        }*/
+        }
 
         //Files.createDirectory(Paths.get("graphs"));
 

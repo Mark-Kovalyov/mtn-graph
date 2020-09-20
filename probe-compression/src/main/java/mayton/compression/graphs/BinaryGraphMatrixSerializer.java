@@ -43,7 +43,7 @@ public class BinaryGraphMatrixSerializer<V,E> extends BinaryGraphSerializer<V,E>
                 int row = map.get(edge.getV1().getId());
                 int col = map.get(edge.getV2().getId());
                 if (row >= minRow && row < maxRow) {
-                    int weight = (int) edgeEntry.getKey().getValue();
+                    int weight = (int) edgeEntry.getKey().getEdgeValue();
                     int offset = calcOffset(row - minRow, 2 * col, width);
                     matrixPartition[offset]     = (byte) (weight >>> 8);
                     matrixPartition[offset + 1] = (byte) (weight & 0xFF);

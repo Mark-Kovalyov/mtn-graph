@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TokenSentenceProcessor<V,E> implements GraphProcessor<V,E> {
 
@@ -20,11 +22,15 @@ public class TokenSentenceProcessor<V,E> implements GraphProcessor<V,E> {
 
     protected String prevToken = null;
 
+    private Map<String, Integer> dictionaryTokens = new HashMap<>();
+
+    private int cnt;
+
     public void processGraphNode(@NotNull String token, @NotNull Graph<V,E> graph) {
+        dictionaryTokens.putIfAbsent(token, cnt++);
         if (prevToken != null) {
             logger.debug(":: link {} -> {}", prevToken, token);
-            //TODO
-            //graph.linkEdge(prevToken, token);
+            graph.linkEdge(dictionaryTokens.get(prevToken), dictionaryTokens.get(token));
         }
         prevToken = token;
     }
@@ -39,7 +45,7 @@ public class TokenSentenceProcessor<V,E> implements GraphProcessor<V,E> {
                 logger.trace(":: [0] line {}", line);
                 String[] tokens = StringUtils.split(line, IGNORED_SYMBOLS_WITH_SENTENCE_SEMANTICS);
                 Arrays.stream(tokens)
-                        .peek(item -> logger.trace(":: [1] token: '{}'", item))
+                        //.peek(item -> logger.trace(":: [1] token: '{}'", item))
                         .forEach(token -> {
                             int length = token.length();
                             if (RuUtils.isCyrillicOrHyphensInTheMiddleOrSentenceEnd(token)) {

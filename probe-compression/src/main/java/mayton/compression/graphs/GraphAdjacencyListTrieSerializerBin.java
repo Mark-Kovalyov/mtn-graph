@@ -7,7 +7,7 @@ import mayton.lib.graph.GraphSerializer;
 import mayton.lib.graph.GraphProcessor;
 import mayton.lib.graph.GraphAlgorithm;
 
-import mayton.compression.encoders.varint.VLQOutputStream;
+import mayton.libs.encoders.varint.VLQOutputStream;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,7 +40,7 @@ public class GraphAdjacencyListTrieSerializerBin<V,E> extends BinaryGraphSeriali
                         edge -> Triple.of(
                                 map.get(edge.getV1().getId()),
                                 map.get(edge.getV2().getId()),
-                                (int) edge.getValue())
+                                (int) edge.getEdgeValue())
                 ).sorted(compareByLeftAndMiddle)
                 .collect(Collectors.toList())
         ) {

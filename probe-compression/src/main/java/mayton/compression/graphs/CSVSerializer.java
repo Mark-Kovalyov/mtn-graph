@@ -32,25 +32,25 @@ public class CSVSerializer<V,E> implements GraphSerializer<V,E> {
         CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(outputStream), CSVFormat.ORACLE);
         int cnt = 0;
         csvPrinter.printComment("# Dictionary");
-        Map<String, String> id2hexnum = new HashMap<>();
+        Map<Integer, String> id2hexnum = new HashMap<>();
 
         // TODO
-        /*for(Vertex<String, Integer> v : graph.safeGetVertexMap()
+        for(Vertex<V,E> v : graph.safeGetVertexMap()
                 .values()
                 .stream()
-                .sorted((v1,v2) -> v1.getId().compareTo(v2.getId()))
+                .sorted((v1,v2) -> Integer.compare(v1.getId(), v2.getId()))
                 .collect(Collectors.toList())) {
             String hex = format("%X", cnt);
             id2hexnum.put(v.getId(), hex);
             csvPrinter.printRecord(hex, v.getId());
             cnt++;
-        }*/
+        }
 
         csvPrinter.printComment("# Graph");
         for(Map.Entry<Integer,Vertex<V,E>> e : graph.safeGetVertexMap().entrySet()) {
             StringJoiner sj = new StringJoiner("$");
-            for(Edge edgeEntry : e.getValue().getOutgoingEdges()) {
-                sj.add(id2hexnum.get(edgeEntry.getV2().getId()) + ":" + edgeEntry.getValue());
+            for(Edge<V,E> edgeEntry : e.getValue().getOutgoingEdges()) {
+                sj.add(id2hexnum.get(edgeEntry.getV2().getId()) + ":" + edgeEntry.getEdgeValue());
             }
             csvPrinter.printRecord(id2hexnum.get(e.getKey()), sj.toString());
         }

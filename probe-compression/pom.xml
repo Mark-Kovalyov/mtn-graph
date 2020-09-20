@@ -22,7 +22,13 @@
     <dependency>
       <groupId>mayton.libs.graph</groupId>
       <artifactId>mtn-graph</artifactId>
-      <version>1.0.2</version>
+      <version>4.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mayton.libs</groupId>
+      <artifactId>encoders</artifactId>
+      <version>1.0</version>
     </dependency>
 
     <dependency>

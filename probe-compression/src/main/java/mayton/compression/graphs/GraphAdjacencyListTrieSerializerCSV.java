@@ -43,7 +43,7 @@ public class GraphAdjacencyListTrieSerializerCSV<V,E> extends BinaryGraphSeriali
                         edge -> Triple.of(
                             map.get(edge.getV1().getId()),
                             map.get(edge.getV2().getId()),
-                                (int) edge.getValue())
+                                (int) edge.getEdgeValue())
                 ).sorted(compareByLeftAndMiddle)
                 .collect(Collectors.toList())
         ) {

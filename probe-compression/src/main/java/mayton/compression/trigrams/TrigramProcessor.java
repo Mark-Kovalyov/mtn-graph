@@ -1,9 +1,12 @@
 package mayton.compression.trigrams;
 
 import mayton.compression.EncodingTools;
-import mayton.compression.graphs.Edge;
-import mayton.compression.graphs.Graph;
-import mayton.compression.graphs.Vertex;
+import mayton.lib.graph.Graph;
+import mayton.lib.graph.Edge;
+import mayton.lib.graph.Vertex;
+import mayton.lib.graph.GraphSerializer;
+import mayton.lib.graph.GraphProcessor;
+import mayton.lib.graph.GraphAlgorithm;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,13 +35,15 @@ public class TrigramProcessor {
 
     int skipTrigram = 0;
 
-    private Graph graph;
+    private Graph<String,Integer> graph;
 
     Map<String, Integer> trigrams = new HashMap<>();
 
     static String trigramToStr(int c1, int c2, int c3) {
         return StringUtils.trim("" + (char) c1 + (char) c2 + (char) c3);
     }
+
+    int cnt = 0;
 
     void upgradeTrigrams(String currentTrigram) {
         String wrapped = EncodingTools.escape(currentTrigram);
@@ -50,8 +55,10 @@ public class TrigramProcessor {
             skipTrigram++;
             if (skipTrigram == 3) {
                 logger.info("add Next syllable : {}", currentTrigram);
-                Vertex v1 = graph.addVertex(currentTrigram);
-                Vertex v2 = graph.addVertex(prevTrigram);
+                trigrams.putIfAbsent(currentTrigram, cnt++);
+                Vertex<String,Integer> v1 = graph.addVertex(trigrams.get(currentTrigram), currentTrigram);
+                trigrams.putIfAbsent(prevTrigram, cnt++);
+                Vertex<String,Integer> v2 = graph.addVertex(trigrams.get(prevTrigram), prevTrigram);
                 graph.linkEdge(v1, v2);
                 skipTrigram = 0;
             }

@@ -6,8 +6,9 @@ import mayton.lib.graph.Vertex;
 import mayton.lib.graph.GraphSerializer;
 import mayton.lib.graph.GraphProcessor;
 import mayton.lib.graph.GraphAlgorithm;
-import mayton.compression.encoders.varint.VLQOutputStream;
+
 import mayton.lib.graph.Graph;
+import mayton.libs.encoders.varint.VLQOutputStream;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class BinaryGraphVLQSerializer<V,E> extends BinaryGraphSerializer<V,E> {
             Edge edge = edgeEntry.getKey();
             vlqOutputStream.writeLong(map.get(edge.getV1().getId()));
             vlqOutputStream.writeLong(map.get(edge.getV2().getId()));
-            vlqOutputStream.writeLong((int) edge.getValue());
+            vlqOutputStream.writeLong((int) edge.getEdgeValue());
             /*pw.printf("%d;%d;%d\n",
             map.get(edge.getV1().getId()),
                     map.get(edge.getV2().getId()),

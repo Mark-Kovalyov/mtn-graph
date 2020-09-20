@@ -37,7 +37,7 @@ public class JsonSerializer<V,E> implements GraphSerializer<V,E> {
                 jGenerator.writeNumberField("outgoing-edges-count", e.getValue().getOutgoingEdges().size());
                 jGenerator.writeArrayFieldStart("outgoing-edges");
                 for (Edge edgeEntry : e.getValue().getOutgoingEdges()) {
-                    jGenerator.writeString(edgeEntry.getV2().getId() + ":" + (Integer) edgeEntry.getValue());
+                    jGenerator.writeString(edgeEntry.getV2().getId() + ":" + (Integer) edgeEntry.getEdgeValue());
                 }
                 jGenerator.writeEndArray();
                 jGenerator.writeEndObject();
