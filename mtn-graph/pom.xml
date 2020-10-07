@@ -4,9 +4,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>mayton.libs.graph</groupId>
+  <groupId>mayton.libs</groupId>
   <artifactId>mtn-graph</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 
   <name>mtn-graph</name>
   <url>http://www.example.com</url>
