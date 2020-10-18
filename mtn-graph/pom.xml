@@ -6,7 +6,7 @@
 
   <groupId>mayton.libs</groupId>
   <artifactId>mtn-graph</artifactId>
-  <version>5.0.2</version>
+  <version>5.0.3</version>
 
   <name>mtn-graph</name>
   <url>http://www.example.com</url>
@@ -72,6 +72,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.7.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>com.pholser</groupId>
       <artifactId>junit-quickcheck-generators</artifactId>
       <version>0.9.5</version>
@@ -95,6 +102,14 @@
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.22.2</version>
         </plugin>
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
