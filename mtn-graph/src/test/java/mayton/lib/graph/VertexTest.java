@@ -1,6 +1,6 @@
 package mayton.lib.graph;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VertexTest {
 
@@ -9,7 +9,6 @@ public class VertexTest {
         Graph<String,String> graph = new Graph<>();
         graph.addVertex(1,"bojack");
         graph.addVertex(2,"todd");
-
     }
 
 }

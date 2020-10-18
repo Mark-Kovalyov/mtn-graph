@@ -1,17 +1,12 @@
 package mayton.lib.graph;
 
-import mayton.lib.graph.Graph;
-import mayton.lib.graph.Edge;
-import mayton.lib.graph.Vertex;
-import mayton.lib.graph.GraphSerializer;
-import mayton.lib.graph.GraphProcessor;
-import mayton.lib.graph.GraphAlgorithm;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GraphTestAdjucentControl {
 

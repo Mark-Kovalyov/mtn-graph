@@ -1,9 +1,8 @@
 package mayton.lib.graph;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GraphTest {
 
@@ -15,18 +14,17 @@ public class GraphTest {
             graph.linkEdge(i,  i + 1);
         }
 
-        assertEquals("Assume after 100 linking edges chain must be 101 vertex",
-                101, graph.safeGetVertexMap().size());
-        assertEquals("Assume after 100 linking edges chain must contains 100 edges",
-                100, graph.safeGetEdgeWeigthMap().size());
+        assertEquals(101, graph.safeGetVertexMap().size(),"Assume after 100 linking edges chain must be 101 vertex");
+
+        assertEquals(100, graph.safeGetEdgeWeigthMap().size(),"Assume after 100 linking edges chain must contains 100 edges");
 
         for (int i = 0; i < 100; i++) {
-            assertTrue("Graph must contans every edge", graph.containsDirectedEdgeByIds(i, i + 1));
+            assertTrue(graph.containsDirectedEdgeByIds(i, i + 1),"Graph must contans every edge");
         }
 
         for (int i = 0; i < 100; i++) {
-            assertTrue("Graph must contans every edge", graph.containsVertexWithId(i));
-            assertTrue("Graph must contans every edge", graph.containsVertexWithId(i + 1));
+            assertTrue(graph.containsVertexWithId(i),"Graph must contans every edge");
+            assertTrue(graph.containsVertexWithId(i + 1), "Graph must contans every edge");
         }
     }
 
@@ -39,20 +37,18 @@ public class GraphTest {
             graph.linkEdge(new Vertex(i), new Vertex(i + 1));
         }
 
-        assertEquals("Assume after 100 linking edges chain must be 101 vertex",
-                101, graph.safeGetVertexMap().size());
-        assertEquals("Assume after 100 linking edges chain must contains 100 edges",
-                100, graph.safeGetEdgeWeigthMap().size());
+        assertEquals(101, graph.safeGetVertexMap().size());
+        assertEquals(100, graph.safeGetEdgeWeigthMap().size());
 
         for (int i = 0; i < 100; i++) {
-            assertTrue("Graph must contans every edge", graph.containsDirectedEdge(
+            assertTrue(graph.containsDirectedEdge(
                     new Vertex(i),
                     new Vertex(i + 1)));
         }
 
         for (int i = 0; i < 100; i++) {
-            assertTrue("Graph must contans every edge", graph.containsVertexWithId(i));
-            assertTrue("Graph must contans every edge", graph.containsVertexWithId(i + 1));
+            assertTrue(graph.containsVertexWithId(i));
+            assertTrue(graph.containsVertexWithId(i + 1));
         }
     }
 
