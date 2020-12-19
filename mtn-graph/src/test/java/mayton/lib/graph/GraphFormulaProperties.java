@@ -10,12 +10,13 @@ import java.util.stream.Collectors;
  * Сумма степеней вершин равна удвоенному числу ребер
  *
  */
-@PropertyDefaults(tries = 300)
-public class GraphFormulaTest {
+@PropertyDefaults(tries = 300, afterFailure = AfterFailureMode.PREVIOUS_SEED)
+public class GraphFormulaProperties {
 
     private Random random = new Random();
 
     @Property
+    @Report(Reporting.GENERATED)
     boolean graphFormulaIsCorrect(@ForAll("RandomGraphs") Graph<Void,Void> graph) {
 
         int sumVertexPowers = graph.getVertexMap().entrySet().stream()
