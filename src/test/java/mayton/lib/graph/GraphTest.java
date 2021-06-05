@@ -7,10 +7,10 @@ import org.junit.jupiter.api.condition.EnabledIf;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Main Graph test")
-public class GraphTest {
+class GraphTest {
 
     @Test
-    public void testHashMapContractByStringKeys() {
+    void testHashMapContractByStringKeys() {
         Graph<Void,Void> graph = new Graph();
 
         for (int i = 0; i < 100; i++) {
@@ -32,7 +32,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testHashMapContractByObjectKeys() {
+    void testHashMapContractByObjectKeys() {
 
         Graph<Void,Void> graph = new Graph<>(50_000, 260_000);
 
@@ -56,7 +56,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testGraphContainsEdges() {
+    void testGraphContainsEdges() {
         Graph<Void,Integer> graph = new Graph();
         graph.setRefreshEdgeFunction((a) -> a + 1);
         graph.setEdgeNeutralElement(1);
@@ -82,7 +82,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testGraphOutgoingEdges() {
+    void testGraphOutgoingEdges() {
         Graph<Void, Integer> graph = new Graph();
         graph.setRefreshEdgeFunction((a) -> a + 1);
         graph.setEdgeNeutralElement(1);
@@ -113,7 +113,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testVertexJoin() {
+    void testVertexJoin() {
         Graph<String, Integer> graph = new Graph();
 
         graph.setRefreshEdgeFunction((a) -> a + 1);

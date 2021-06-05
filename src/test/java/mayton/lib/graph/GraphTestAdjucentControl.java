@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class GraphTestAdjucentControl {
+class GraphTestAdjucentControl {
 
     //
     //  (1)         (4)
@@ -17,7 +17,7 @@ public class GraphTestAdjucentControl {
     //    /        \
     //  (7)        (6)
     @Test
-    public void test() {
+    void test() {
         Graph<String, Integer> graph = new Graph<>();
         graph.setEdgeNeutralElement(0);
         graph.setJoinVertexFunction((String s1,String s2) -> s1 + " " + s2);
